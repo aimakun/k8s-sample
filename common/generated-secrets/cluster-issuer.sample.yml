@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  tls.key: ZHVtbXlkYXRhCg==
+kind: Secret
+metadata:
+  name: route53-issuer-account-key
+type: Opaque

@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  APP_DEBUG: "true"
+  APP_ENV: qa
+  APP_KEY: "null"
+  APP_NAME: Laravel
+  APP_URL: https://project1.example.com
+  BROADCAST_DRIVER: log
+  CACHE_DRIVER: file
+  DB_CONNECTION: mysql
+  DB_DATABASE: homestead
+  DB_HOST: 127.0.0.1
+  DB_PASSWORD: secret
+  DB_PORT: "3306"
+  DB_USERNAME: homestead
+  ENFORCE_SSL: "true"
+  LOG_CHANNEL: stack
+  MAIL_DRIVER: smtp
+  MAIL_ENCRYPTION: "null"
+  MAIL_HOST: smtp.mailtrap.io
+  MAIL_PASSWORD: "null"
+  MAIL_PORT: "2525"
+  MAIL_USERNAME: "null"
+  MIX_PUSHER_APP_CLUSTER: '"${PUSHER_APP_CLUSTER}"'
+  MIX_PUSHER_APP_KEY: '"${PUSHER_APP_KEY}"'
+  PUSHER_APP_CLUSTER: mt1
+  PUSHER_APP_ID: ""
+  PUSHER_APP_KEY: ""
+  PUSHER_APP_SECRET: ""
+  QUEUE_CONNECTION: sync
+  REDIS_HOST: 127.0.0.1
+  REDIS_PASSWORD: "null"
+  REDIS_PORT: "6379"
+  SESSION_DRIVER: file
+  SESSION_LIFETIME: "120"
+kind: ConfigMap
+metadata:
+  name: project1-service-dotenv-config

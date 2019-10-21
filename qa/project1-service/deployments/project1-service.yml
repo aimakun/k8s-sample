@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: project1-service
+  name: project1-service
+spec:
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: project1-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: project1-service
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: project1-service-dotenv-config
+        - secretRef:
+            name: project1-service-dotenv-secrets
+        image: asia.gcr.io/project1/project1-service:qa
+        imagePullPolicy: IfNotPresent
+        name: project1-service
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data/storage/oauth_keys
+          name: oauth-keys
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: oauth-keys
+        secret:
+          defaultMode: 420
+          items:
+          - key: PASSPORT_PRIVATE_KEY
+            path: oauth-private.key
+          - key: PASSPORT_PUBLIC_KEY
+            path: oauth-public.key
+          secretName: project1-service-dotenv-secrets

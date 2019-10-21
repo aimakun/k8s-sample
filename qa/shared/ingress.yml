@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    certmanager.k8s.io/cluster-issuer: letsencrypt
+  name: project1-ingress
+  namespace: qa
+spec:
+  rules:
+  - host: project1.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: project1
+          servicePort: 8080
+        path: /
+      - backend:
+          serviceName: project1
+          servicePort: 8080
+        path: /*
+  tls: # < placing a host in the TLS config will indicate a cert should be created
+  - hosts:
+    - '*.example.com'
+    secretName: ingress-cert # < cert-manager will store the created certificate in this secret.
